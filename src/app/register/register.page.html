@@ -10,9 +10,9 @@
           <div class="inputField">
             <ion-item class="ion-text-center">
               <ion-input
-                name="name"
+                name="username"
                 type="text"
-                placeholder="Name"
+                placeholder="Username"
                 autofocus
                 ngModel
                 required
@@ -25,6 +25,7 @@
               <ion-input
                 name="email"
                 type="email"
+                inputmode="email"
                 placeholder="Email"
                 ngModel
                 email
@@ -50,7 +51,7 @@
                 placeholder="Password"
                 ngModel
                 required
-                minLength="6"
+                minLength="8"
                 #passwordCtrl="ngModel"
               ></ion-input>
             </ion-item>
@@ -68,11 +69,10 @@
               ></ion-input>
             </ion-item>
             <ion-item
-              *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
               lines="none"
             >
-              <ion-label class="ion-text-center" color="danger">
-                Password has to be at least 6 characters
+              <ion-label text-wrap class="ion-text-center" color="black">
+                Password must contain a capital letter, lowercase letter, a number and be at least 8 characters long.
               </ion-label>
             </ion-item>
           </div>
@@ -89,7 +89,7 @@
           </div>
         </ion-col>
         <ion-col>
-          <ion-text color="dark">
+          <ion-text color="dark" routerLink="/login">
             <p style="text-align: center">Go back?</p>
           </ion-text>
         </ion-col>

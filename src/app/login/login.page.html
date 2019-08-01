@@ -10,23 +10,15 @@
           <div class="inputField">
             <ion-item class="ion-text-center">
               <ion-input
-                name="email"
-                type="email"
-                placeholder="Email"
+                name="username"
+                type="text"
+                placeholder="Username"
                 autofocus
                 email
                 ngModel
                 required
                 #emailCtrl="ngModel"
               ></ion-input>
-            </ion-item>
-            <ion-item
-              *ngIf="!emailCtrl.valid && emailCtrl.touched"
-              lines="none"
-            >
-              <ion-label class="ion-text-center" color="danger">
-                Please enter a valid email
-              </ion-label>
             </ion-item>
           </div>
 
@@ -55,7 +47,7 @@
         </ion-col>
         <div>
           <ion-col>
-            <ion-text color="dark">
+            <ion-text color="dark" routerLink="/register">
               <p class="loginLink">
                 Don't have an account? Sign up.
               </p>
