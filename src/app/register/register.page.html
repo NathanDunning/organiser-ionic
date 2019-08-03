@@ -1,33 +1,48 @@
 <ion-content color="white">
-  <form #form="ngForm">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-grid>
       <ion-row color="primary" justify-content-center align-items-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div text-center>
             <h1 class="title">Add Logo Here?</h1>
           </div>
+
           <div class="inputField">
             <ion-item class="ion-text-center">
               <ion-input
-                name="name"
+                name="username"
                 type="text"
-                placeholder="Name"
+                placeholder="Username"
+                autofocus
                 ngModel
                 required
               ></ion-input>
             </ion-item>
           </div>
+
           <div class="inputField">
             <ion-item class="ion-text-center">
               <ion-input
                 name="email"
                 type="email"
+                inputmode="email"
                 placeholder="Email"
                 ngModel
+                email
                 required
+                #emailCtrl="ngModel"
               ></ion-input>
             </ion-item>
+            <ion-item
+              *ngIf="!emailCtrl.valid && emailCtrl.touched"
+              lines="none"
+            >
+              <ion-label class="ion-text-center" color="danger">
+                Please enter a valid email
+              </ion-label>
+            </ion-item>
           </div>
+
           <div class="inputField">
             <ion-item class="ion-text-center">
               <ion-input
@@ -36,34 +51,45 @@
                 placeholder="Password"
                 ngModel
                 required
+                minLength="8"
+                #passwordCtrl="ngModel"
               ></ion-input>
             </ion-item>
           </div>
+
           <div class="inputField">
             <ion-item class="ion-text-center">
               <ion-input
                 name="confirm"
                 type="password"
                 placeholder="Confirm Password"
+                password
                 ngModel
                 required
               ></ion-input>
             </ion-item>
+            <ion-item lines="none">
+              <ion-label text-wrap class="ion-text-center" color="black">
+                Password must contain a capital letter, lowercase letter, a
+                number and be at least 8 characters long.
+              </ion-label>
+            </ion-item>
           </div>
+
           <div class="register">
             <ion-button
               class="registerButton"
               size="large"
               type="submit"
-              [disabled]="form.invalid"
               expand="block"
+              [disabled]="form.invalid"
               >Register</ion-button
             >
           </div>
         </ion-col>
         <ion-col>
-          <ion-text color="dark">
-            <p style="text-align: center">Go back?</p>
+          <ion-text color="primary" routerLink="/login">
+            <p style="text-align: center">Already have an account? Sign in</p>
           </ion-text>
         </ion-col>
       </ion-row>
