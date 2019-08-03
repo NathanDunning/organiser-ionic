@@ -8,18 +8,16 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
-    path: 'list',
-    loadChildren: () =>
-      import('./list/list.module').then(m => m.ListPageModule),
-    canLoad: [LoginGuard] // Protected routes
-  },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   {
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
   },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' }
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomePageModule',
+    canLoad: [LoginGuard] // Protected routes
+  }
 ];
 
 @NgModule({
