@@ -10,14 +10,16 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule),
+    loadChildren: () =>
+      import('./list/list.module').then(m => m.ListPageModule),
     canLoad: [LoginGuard] // Protected routes
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   {
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
-  }
+  },
+  { path: 'home', loadChildren: './home/home.module#HomePageModule' }
 ];
 
 @NgModule({

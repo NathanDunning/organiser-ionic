@@ -2,7 +2,14 @@
   <form #form="ngForm" (submit)="onSubmit(form)">
     <ion-grid>
       <ion-row color="primary" justify-content-center align-items-center>
-        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <ion-col
+          align-self-center
+          align-items-center
+          justify-content-center
+          size-md="6"
+          size-lg="5"
+          size-xs="12"
+        >
           <div text-center>
             <h1 class="title">Add Logo Here?</h1>
           </div>
@@ -32,6 +39,9 @@
             </ion-item>
           </div>
 
+          <ion-text class="invalidCred" id="invalidCred" color="danger">
+          </ion-text>
+
           <div class="login">
             <ion-button
               class="loginButton"
@@ -45,12 +55,12 @@
         </ion-col>
         <div>
           <ion-col>
-              <ion-text color="dark">
-                  <p class="loginLink">
-                    Forgot password?
-                  </p>
-                </ion-text>
-            <ion-text color="dark" routerLink="/register">
+            <ion-text color="primary">
+              <p class="loginLink" (click)="onReset()">
+                Forgot password?
+              </p>
+            </ion-text>
+            <ion-text color="primary" routerLink="/register">
               <p class="loginLink">
                 Don't have an account? Sign up.
               </p>

@@ -1,21 +1,155 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Parse } from 'parse';
 import { User } from './user.model';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, from } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+import { map, tap } from 'rxjs/operators';
 
-Parse.serverURL = 'https://parseapi.back4app.com';  // Server URL
+Parse.serverURL = 'https://parseapi.back4app.com'; // Server URL
 Parse.initialize(
   'KgMzLrsdyIpg5Rr6sY8z9jUPfwGnC4CzAKHCHC1Y', // Application ID
   'ntuM4LNbBmfWh53KzXazDIm01DSztR6KCOVqhiGD' // Javascript key
-)
+);
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  constructor(private router: Router) {}
+
   private _user = new BehaviorSubject<User>(null);
 
+  /**
+   * Function to auto login user if data is locally stored on device.
+   */
+  autoLogin() {
+    return from(Plugins.Storage.get({ key: 'authData' })).pipe(
+      map(data => {
+        // Check if data is valid or present in local storage
+        if (!data || !data.value) {
+          return null;
+        }
+
+        // Otherwise convert the string into an object
+        const parseData = JSON.parse(data.value) as {
+          token: string;
+          username: string;
+          email: string;
+          userId: string;
+        };
+
+        // Create the user with the stored data
+        const user = new User(
+          parseData.userId,
+          parseData.username,
+          parseData.email,
+          parseData.token
+        );
+
+        return user;
+      }),
+      // Check if user is set, if so then emit this user
+      tap(user => {
+        console.log(user);
+        if (user) {
+          this._user.next(user);
+        }
+      }),
+      // Return this observable chain as a boolean
+      map(user => {
+        return !!user;
+      })
+    );
+  }
+
+  /**
+   * Logs the user into the app.
+   * @param username User's username
+   * @param password User's password
+   */
+  login(username: string, password: string) {
+    // Authenticate here
+    // Pass the username and password to login function
+    Parse.User.logIn(username, password)
+      .then(user => {
+        // Do after successful login
+        this._user.next(
+          new User(
+            user.id,
+            user.get('username'),
+            user.get('email'),
+            user.get('sessionToken')
+          )
+        );
+
+        // Store data into local storage
+        this.storeAuthData(
+          user.id,
+          user.get('username'),
+          user.get('email'),
+          user.get('sessionToken')
+        );
+
+        // Route user to home page
+        this.router.navigateByUrl('/home');
+      })
+      .catch(error => {
+        // Do after unsuccessfull login
+        document.getElementById('invalidCred').innerHTML =
+          'Invalid username or password';
+      });
+  }
+
+  /**
+   * Logging out function.
+   */
+  logout() {
+    // Remove authentication
+    this._user.next(null);
+  }
+
+  /**
+   * Method called when user selected "Forgot Password".
+   */
+  resetPassword() {
+    console.log('reset called');
+    // TODO: Reset
+    // Parse.User.requestPasswordReset("test@example.com").then(function() {
+    //   console.log("Password reset request was sent successfully");
+    // }).catch(function(error) {
+    //   console.log("The login failed with error: " + error.code + " " + error.message);
+    // });
+  }
+
+  /**
+   * This method stores the user's auth data into the device storage
+   * @param userId Id of the user
+   * @param username Username of user
+   * @param email Email of user
+   * @param token Session Token of user
+   */
+  private storeAuthData(
+    userId: string,
+    username: string,
+    email: string,
+    token: string
+  ) {
+    // Convert user authentication data into a string
+    const data = JSON.stringify({
+      userId: userId,
+      username: username,
+      email: email,
+      token: token
+    });
+
+    // Set to storage via capacitor plugin
+    Plugins.Storage.set({ key: 'authData', value: data });
+  }
+
+  /**
+   * Getter for state of whether user is authenticated or not.
+   */
   get userIsAuthenticated() {
     return this._user.asObservable().pipe(
       map(user => {
@@ -28,6 +162,9 @@ export class LoginService {
     );
   }
 
+  /**
+   * Getter for the user Id.
+   */
   get userId() {
     return this._user.asObservable().pipe(
       map(user => {
@@ -36,28 +173,5 @@ export class LoginService {
         }
       })
     );
-  }
-
-  constructor() { }
-
-  login(username: string, password: string) {
-    // Authenticate here
-    // Pass the username and password to logIn function
-    Parse.User.logIn(username, password).then((user) => {
-      // Do stuff after successful login
-      if (typeof document !== 'undefined') document.write(`Logged in user: ${JSON.stringify(user)}`);
-      console.log('Logged in user', user);
-    }).catch(error => {
-      if (typeof document !== 'undefined') document.write(`Error while logging in user: ${JSON.stringify(error)}`);
-      console.error('Error while logging in user', error);
-    });
-
-    //this._isAuthenticated = true;
-    console.log('auth service login called');
-  }
-
-  logout() {
-    // Remove authentication here
-    this._isAuthenticated = false;
   }
 }

@@ -8,9 +8,7 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
-
   constructor(private loginService: LoginService) {}
-
 
   ngOnInit() {}
 
@@ -18,5 +16,9 @@ export class LoginPage implements OnInit {
     const username = form.value.username;
     const password = form.value.password;
     this.loginService.login(username, password);
+  }
+
+  onReset() {
+    this.loginService.resetPassword();
   }
 }
