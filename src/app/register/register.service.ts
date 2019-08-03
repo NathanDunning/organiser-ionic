@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Parse } from 'parse';
+import { LoginService } from '../login/login.service';
 
 Parse.serverURL = 'https://parseapi.back4app.com'; //  Server URL
 Parse.initialize(
@@ -12,7 +14,7 @@ Parse.initialize(
   providedIn: 'root'
 })
 export class RegisterService {
-  constructor() {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   signup(username: string, email: string, password: string) {
     const user = new Parse.User();
@@ -24,16 +26,19 @@ export class RegisterService {
     user
       .signUp()
       .then(user => {
-        if (typeof document !== 'undefined')
-          document.write(`User signed up: ${JSON.stringify(user)}`);
-        console.log('User signed up', user);
+        this.loginService.setUser(
+          user.id,
+          user.get('username'),
+          user.get('email'),
+          user.get('sessionToken')
+        );
+
+        // Route user to home page
+        this.router.navigateByUrl('/home');
       })
       .catch(error => {
-        if (typeof document !== 'undefined')
-          document.write(
-            `Error while signing up user: ${JSON.stringify(error)}`
-          );
-        console.error('Error while signing up user', error);
+        document.getElementById('errorMessage').innerHTML =
+          'Account already exists';
       });
   }
 }

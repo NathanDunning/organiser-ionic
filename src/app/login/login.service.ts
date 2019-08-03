@@ -74,17 +74,8 @@ export class LoginService {
     Parse.User.logIn(username, password)
       .then(user => {
         // Do after successful login
-        this._user.next(
-          new User(
-            user.id,
-            user.get('username'),
-            user.get('email'),
-            user.get('sessionToken')
-          )
-        );
-
-        // Store data into local storage
-        this.storeAuthData(
+        // Set user
+        this.setUser(
           user.id,
           user.get('username'),
           user.get('email'),
@@ -120,6 +111,21 @@ export class LoginService {
     // }).catch(function(error) {
     //   console.log("The login failed with error: " + error.code + " " + error.message);
     // });
+  }
+
+  /**
+   * Method for setting user (register).
+   * @param id User id
+   * @param username User username
+   * @param email User email
+   * @param token user auth token
+   */
+  setUser(id: string, username: string, email: string, token: string) {
+    // Set the user
+    this._user.next(new User(id, username, email, token));
+
+    // Store the auth data
+    this.storeAuthData(id, username, email, token);
   }
 
   /**
