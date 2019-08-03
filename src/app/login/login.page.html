@@ -14,10 +14,8 @@
                 type="text"
                 placeholder="Username"
                 autofocus
-                email
                 ngModel
                 required
-                #emailCtrl="ngModel"
               ></ion-input>
             </ion-item>
           </div>
@@ -47,14 +45,14 @@
         </ion-col>
         <div>
           <ion-col>
+              <ion-text color="dark">
+                  <p class="loginLink">
+                    Forgot password?
+                  </p>
+                </ion-text>
             <ion-text color="dark" routerLink="/register">
               <p class="loginLink">
                 Don't have an account? Sign up.
-              </p>
-            </ion-text>
-            <ion-text color="dark">
-              <p class="loginLink">
-                Forgot password?
               </p>
             </ion-text>
           </ion-col>

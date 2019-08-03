@@ -15,9 +15,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   onSubmit(form: NgForm) {
-    const email = form.value.email;
+    const username = form.value.username;
     const password = form.value.password;
-    console.log(email, password);
-    this.loginService.login();
+    this.loginService.login(username, password);
   }
 }

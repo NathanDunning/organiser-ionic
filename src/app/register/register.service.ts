@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
-const Parse = require('parse');
+import { Parse } from 'parse';
 
 Parse.serverURL = 'https://parseapi.back4app.com'; //  Server URL
 Parse.initialize(
@@ -17,7 +16,7 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
 
-  signup(username: String, email: String, password: String) {
+  signup(username: string, email: string, password: string) {
     const user = new Parse.User()
     user.set('username', username);
     user.set('email', email);
