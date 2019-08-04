@@ -16,7 +16,27 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: './home/home.module#HomePageModule',
-    canLoad: [LoginGuard] // Protected routes
+    canLoad: [LoginGuard] // Protected route
+  },
+  {
+    path: 'calendar',
+    loadChildren: './calendar/calendar.module#CalendarPageModule',
+    canLoad: [LoginGuard] // Protected route
+  },
+  {
+    path: 'todo',
+    loadChildren: './todo/todo.module#TodoPageModule',
+    canLoad: [LoginGuard] // Protected route
+  },
+  {
+    path: 'reminders',
+    loadChildren: './reminders/reminders.module#RemindersPageModule',
+    canLoad: [LoginGuard] // Protected route
+  },
+  {
+    path: 'social',
+    loadChildren: './social/social.module#SocialPageModule',
+    canLoad: [LoginGuard] // Protected route
   }
 ];
 

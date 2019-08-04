@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LoginService } from './login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -17,16 +18,32 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Calendar',
+      url: '/calendar',
+      icon: 'calendar'
+    },
+    {
+      title: 'To Do',
+      url: '/todo',
+      icon: 'clipboard'
+    },
+    {
+      title: 'Reminders',
+      url: '/reminders',
+      icon: 'notifications'
+    },
+    {
+      title: 'Social',
+      url: '/social',
+      icon: 'contacts'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private loginService: LoginService
   ) {
     this.initializeApp();
   }
@@ -36,5 +53,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  onLogout() {
+    this.loginService.logout();
   }
 }

@@ -98,6 +98,8 @@ export class LoginService {
   logout() {
     // Remove authentication
     this._user.next(null);
+
+    // TODO: Clear from local storage
   }
 
   /**
