@@ -9,8 +9,13 @@ import { HomeService } from './home.service';
 export class HomePage implements OnInit {
   weather: any;
   iconUrl: string;
+  temp?: number;
 
   constructor(private homeService: HomeService) {
+    this.loadWeather();
+  }
+
+  loadWeather() {
     this.homeService
       .fetchWeather()
       .then(value => {
@@ -18,14 +23,12 @@ export class HomePage implements OnInit {
         this.iconUrl = `http://openweathermap.org/img/wn/${
           this.weather.weather[0].icon
         }@2x.png`;
+        this.temp = Math.round((+this.weather.main.temp * 2) / 2);
+        console.log(this.weather);
       })
       .catch(err => {
         console.log(err);
       });
-  }
-
-  setImage(icon: string) {
-    this.iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
   }
 
   ngOnInit() {}
