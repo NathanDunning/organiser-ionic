@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Parse } from 'parse';
-import { User } from './user.model';
-import { BehaviorSubject, from } from 'rxjs';
 import { Plugins } from '@capacitor/core';
+import { BehaviorSubject, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { Parse } from 'parse';
+
+import { User } from './user.model';
+import { environment } from 'src/environments/environment';
 
 Parse.serverURL = 'https://parseapi.back4app.com'; // Server URL
 Parse.initialize(
-  'KgMzLrsdyIpg5Rr6sY8z9jUPfwGnC4CzAKHCHC1Y', // Application ID
-  'ntuM4LNbBmfWh53KzXazDIm01DSztR6KCOVqhiGD' // Javascript key
+  `${environment.ParseServerApplicationID}`, // Application ID
+  `${environment.ParseServerJSKey}` // Javascript key
 );
 
 @Injectable({
@@ -98,6 +100,8 @@ export class LoginService {
   logout() {
     // Remove authentication
     this._user.next(null);
+
+    // TODO: Clear from local storage
   }
 
   /**

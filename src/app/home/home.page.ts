@@ -1,15 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  styleUrls: ['./home.page.scss']
 })
 export class HomePage implements OnInit {
+  weather: any;
+  iconUrl: string;
+  temp?: number;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private homeService: HomeService) {
+    this.loadWeather();
   }
 
+  loadWeather() {
+    this.homeService
+      .fetchWeather()
+      .then(value => {
+        this.weather = value;
+        this.iconUrl = `http://openweathermap.org/img/wn/${
+          this.weather.weather[0].icon
+        }@2x.png`;
+        this.temp = Math.round((+this.weather.main.temp * 2) / 2);
+        console.log(this.weather);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  ngOnInit() {}
 }

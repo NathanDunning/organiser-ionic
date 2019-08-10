@@ -1,9 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-grid>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size="2">
+          <ion-img style="width: 50px; height: 50px;" [src]="iconUrl"></ion-img>
+        </ion-col>
 
+        <ion-col align-self: flex-end>
+          <ion-row justify-content-center align-items-center>
+            <ion-label> {{ weather?.name }} </ion-label>
+          </ion-row>
+
+          <ion-row justify-content-center align-items-center>
+            <ion-label>
+              {{ '"' + (weather?.weather)[0].description + '"' }}
+            </ion-label>
+          </ion-row>
+        </ion-col>
+
+        <ion-col>
+          <ion-row justify-content-center align-items-center>
+            <ion-label>
+              {{ temp + ' celcius' }}
+            </ion-label>
+          </ion-row>
+          <ion-row justify-content-center align-items-center>
+            <ion-label>
+              {{ 'wind: ' + weather?.wind.speed + ' kph' }}
+            </ion-label>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col> </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

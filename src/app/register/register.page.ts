@@ -9,7 +9,10 @@ import { RegisterService } from './register.service';
   styleUrls: ['./register.page.scss']
 })
 export class RegisterPage implements OnInit {
-  constructor(private registerService: RegisterService, private router: Router) {}
+  constructor(
+    private registerService: RegisterService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -27,7 +30,7 @@ export class RegisterPage implements OnInit {
     if (password !== confirm) {
       // TODO: Throw an error or create a popup
     }
-    
+
     this.registerService.signup(username, email, password);
 
     // this.router.navigateByUrl('/login');
