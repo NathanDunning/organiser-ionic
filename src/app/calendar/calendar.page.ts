@@ -57,7 +57,6 @@ export class CalendarPage implements OnInit {
 
     await query.find().then(results => {
       results.map(data => {
-        console.log(data.attributes);
         const event = {
           title: data.attributes.title,
           startTime: new Date(data.attributes.startTime),

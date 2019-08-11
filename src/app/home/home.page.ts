@@ -25,7 +25,6 @@ export class HomePage implements OnInit {
           this.weather.weather[0].icon
         }@2x.png`;
         this.temp = Math.round((+this.weather.main.temp * 2) / 2);
-        console.log(this.weather);
       })
       .catch(err => {
         console.log(err);

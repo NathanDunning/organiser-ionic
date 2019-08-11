@@ -25,6 +25,7 @@ export class TodoPage implements OnInit {
     this.loadTasks();
   }
 
+  // Load all the current tasks from database
   loadTasks() {
     const Todo = Parse.Object.extend('Todo');
     const query = new Parse.Query(Todo);
@@ -46,6 +47,7 @@ export class TodoPage implements OnInit {
     );
   }
 
+  // Create new task and add to database
   createNewTask(task: string) {
     const Todo = Parse.Object.extend('Todo');
     const myNewObject = new Todo();
@@ -68,6 +70,7 @@ export class TodoPage implements OnInit {
     );
   }
 
+  // Add new task via the popup
   async addNewTask() {
     const alert = await this.alertCtrl.create({
       header: 'Add Task',
@@ -99,6 +102,7 @@ export class TodoPage implements OnInit {
     await alert.present();
   }
 
+  // Delete any existing tasks from the 'x' icon
   onClick(id: any) {
     this.tasks = this.tasks.filter(value => {
       return value.id !== id;

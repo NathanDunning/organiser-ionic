@@ -16,6 +16,7 @@ export class SocialPage implements OnInit {
     this.fetchHeadlines();
   }
 
+  // Fetching top 10 headlines from GoogleNews
   async fetchHeadlines() {
     await fetch(newsUrl)
       .then(response => response.json())
@@ -25,6 +26,5 @@ export class SocialPage implements OnInit {
       .catch(err => {
         console.error(err);
       });
-    console.log(this.articles);
   }
 }

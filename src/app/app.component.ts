@@ -27,11 +27,11 @@ export class AppComponent {
       url: '/todo',
       icon: 'clipboard'
     },
-    {
-      title: 'Reminders',
-      url: '/reminders',
-      icon: 'notifications'
-    },
+    // {
+    //   title: 'Reminders',
+    //   url: '/reminders',
+    //   icon: 'notifications'
+    // },
     {
       title: 'Social',
       url: '/social',

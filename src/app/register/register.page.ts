@@ -16,6 +16,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
+  // Method to call when form has been submitted
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
@@ -26,7 +27,6 @@ export class RegisterPage implements OnInit {
     const password = form.value.password;
     const confirm = form.value.confirm;
 
-    console.log(username, email, password, confirm);
     if (password !== confirm) {
       // TODO: Throw an error or create a popup
     }

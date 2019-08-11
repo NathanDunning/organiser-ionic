@@ -35,7 +35,6 @@ export class AddService {
           ...event,
           id: result.id
         };
-        console.log('Calendar created', evCopy);
         location.replace(window.location.href.replace('add', 'calendar'));
       },
       error => {

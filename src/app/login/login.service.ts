@@ -18,9 +18,7 @@ Parse.initialize(
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private router: Router) {
-    console.log(Parse.serverURL);
-  }
+  constructor(private router: Router) {}
 
   private _user = new BehaviorSubject<User>(null);
 
@@ -55,7 +53,6 @@ export class LoginService {
       }),
       // Check if user is set, if so then emit this user
       tap(user => {
-        console.log(user);
         if (user) {
           this._user.next(user);
         }
