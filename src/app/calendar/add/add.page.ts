@@ -76,6 +76,7 @@ export class AddPage implements OnInit {
     return this.eventEnd > this.eventStart;
   }
 
+  // Alert for invalid date input
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Invalid Input',

@@ -49,6 +49,7 @@ export class CalendarPage implements OnInit {
     this.resetEvent();
   }
 
+  // Get events and add to the event source
   async getEvents() {
     const getEvents = Parse.Object.extend('Calendar');
     const query = new Parse.Query(getEvents);
@@ -71,6 +72,7 @@ export class CalendarPage implements OnInit {
     this.resetEvent();
   }
 
+  // Reset input form
   resetEvent() {
     this.event = {
       startTime: new Date().toISOString(),

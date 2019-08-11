@@ -18,6 +18,7 @@ Parse.initialize(
 export class AddService {
   constructor(private alertCtrl: AlertController, private router: Router) {}
 
+  // Service to add a new event to the calendar
   addEvent(event: any) {
     const Calendar = Parse.Object.extend('Calendar');
     const newEvent = new Calendar();
@@ -43,6 +44,7 @@ export class AddService {
     );
   }
 
+  // Alert for unable to create error
   async presentAlert() {
     const alert = await this.alertCtrl.create({
       header: 'Error',
