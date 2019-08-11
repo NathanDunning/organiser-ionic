@@ -15,6 +15,7 @@ export class HomePage implements OnInit {
     this.loadWeather();
   }
 
+  // Method to load weather from API
   loadWeather() {
     this.homeService
       .fetchWeather()
