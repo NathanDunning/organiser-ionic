@@ -100,7 +100,17 @@ export class LoginService {
    * Logging out function.
    */
   logout() {
-    // Unimplemented TODO
+    // Set next observable user to null
+    this._user.next(null);
+
+    // Clear local storage
+    Plugins.Storage.remove({ key: 'authData' });
+
+    // Remove ParseAPI data
+    Parse.User.logOut();
+
+    // Re-route
+    this.router.navigateByUrl('/login');
   }
 
   /**
