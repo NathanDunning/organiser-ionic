@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>social</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Headlines</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list *ngFor="let article of articles">
+    <ion-card>
+      <ion-img [src]="article.urlToImage"></ion-img>
+      <ion-card-header>
+        <ion-card-subtitle>{{ article.author }}</ion-card-subtitle>
+        <ion-card-title>{{ article.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{ article.description }}</ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>
