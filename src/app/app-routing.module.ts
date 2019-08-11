@@ -37,7 +37,8 @@ const routes: Routes = [
     path: 'social',
     loadChildren: './social/social.module#SocialPageModule',
     canLoad: [LoginGuard] // Protected route
-  }
+  },
+  { path: 'add', loadChildren: './calendar/add/add.module#AddPageModule' }
 ];
 
 @NgModule({

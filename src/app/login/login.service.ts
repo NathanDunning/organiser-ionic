@@ -18,7 +18,9 @@ Parse.initialize(
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    console.log(Parse.serverURL);
+  }
 
   private _user = new BehaviorSubject<User>(null);
 
@@ -98,10 +100,7 @@ export class LoginService {
    * Logging out function.
    */
   logout() {
-    // Remove authentication
-    this._user.next(null);
-
-    // TODO: Clear from local storage
+    // Unimplemented TODO
   }
 
   /**
