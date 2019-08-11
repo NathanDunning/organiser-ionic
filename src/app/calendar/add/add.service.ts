@@ -36,7 +36,7 @@ export class AddService {
           id: result.id
         };
         console.log('Calendar created', evCopy);
-        this.router.navigateByUrl('/calendar');
+        location.replace(window.location.href.replace('add', 'calendar'));
       },
       error => {
         this.presentAlert();

@@ -41,11 +41,10 @@ export class CalendarPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     @Inject(LOCALE_ID) private locale: string
-  ) {
-    this.getEvents();
-  }
+  ) {}
 
   ngOnInit() {
+    this.getEvents();
     this.resetEvent();
   }
 
