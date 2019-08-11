@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>todo</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Tasks To Do
+    </ion-title>
+    <ion-button fill="clear" slot="end" (click)="addNewTask()">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-item *ngIf="tasks === undefined || tasks.length == 0">
+    Add new tasks to display
+  </ion-item>
+  <ion-list *ngFor="let task of tasks">
+    <ion-item id="task.id">
+      <ion-label>{{ task.task }}</ion-label>
+      <ion-button fill="clear" slot="end" (click)="onClick(task.id)">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
